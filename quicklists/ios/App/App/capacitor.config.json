@@ -1,0 +1,7 @@
+{
+  "appId": "com.RobbyGamble.Quicklists",
+  "appName": "quicklists",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
