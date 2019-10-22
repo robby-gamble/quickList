@@ -1,27 +1,27 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
+import {Plugins} from "@capacitor/core";
+import {ChecklistDataService} from "./services/checklist-data.service";
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+const {SplashScreen, StatusBar} = Plugins;
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
-})
-export class AppComponent {
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
-    this.initializeApp();
-  }
+  selector: "app-root",
+  templateUrl: "app.component.html",
+  styleUrls: ["app.component.scss"]
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+})
+
+export class AppComponent {
+  constructor(private dataService: ChecklistDataService) {
+    this.dataService.load();
+
+
+    SplashScreen.hide().catch(err => {
+      console.warn(err);
+    });
+
+    StatusBar.hide().catch(err => {console.warn(err);
     });
   }
 }

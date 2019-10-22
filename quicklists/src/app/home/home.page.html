@@ -1,14 +1,33 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-title>
-      Ionic Blank
+      <img src="assets/images/logo.png" />
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addChecklist()">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor= "let checklist of dataService.checklists">
+      <ion-item [routerLink]=" '/checklists/' + checklist.id" routerDirection="forward">
+        <ion-label>{{checklist.title}}</ion-label>
+        <span>{{checklist.items.length}} items</span>
+      </ion-item>
+
+      <ion-item-options side="end"> 
+      <ion-item-option color="light" expandable (click)="renameChecklist(checklist)">
+          <ion-icon slot="icon-only" name="clipboard"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" expandable (click)="removeChecklist(checklist)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
+
